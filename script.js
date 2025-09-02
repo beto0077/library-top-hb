@@ -1,24 +1,9 @@
-//TEST AREA
-const testDiv = document.querySelector(".test-div");
-
-for (let index = 0; index <= 10; index++) {
-    const testNumber = document.createElement("p");
-    testNumber.textContent = `${index}...`;
-    testDiv.appendChild(testNumber);
-}
-const testText = document.createElement("p");
-testText.textContent = "The JS is working as well...";
-testDiv.appendChild(testText);
-//------------------------------------------------------------
 const cardsContainer = document.querySelector(".cards-container");
-const bookList = [];
+const newBookButton = document.querySelector(".new-book-button");
+const bookForm = document.querySelector(".book-form");
 
-function addNewLine(newText, typeElement) {
-    let tagToUse = !typeElement ? "p" : typeElement;
-    const newLine = document.createElement(tagToUse);
-    newLine.textContent = newText;
-    testDiv.appendChild(newLine);
-}
+const booksGrid = document.querySelector(".books-grid");
+const bookList = [];
 
 function Book(title, author, pages, hasBeenRead) {
     if (!new.target) {
@@ -29,42 +14,49 @@ function Book(title, author, pages, hasBeenRead) {
     this.author = author;
     this.pages = pages;
     this.hasBeenRead = hasBeenRead;
-    this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${hasBeenRead ? "has already been read" : "not read yet"}`;
-    }
+}
+
+Book.prototype.info = function () {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${hasBeenRead ? "has already been read" : "not read yet"}`;
 }
 
 Book.prototype.changeReadStatus = function () {
     this.hasBeenRead = this.hasBeenRead ? false : true;
 }
 
-function addBookToLibrary(title, author, pages, hasBeenRead) {
-    const newBook = new Book(title, author, pages, hasBeenRead);
+function addBookToList(title, author, pages, hasBeenRead) {
+    const newBook = new Book(title, author, Number(pages), hasBeenRead === "true" ? true : false);
     bookList.push(newBook);
 }
 
-function deleteBookFromLibrary(bookId) {
-    const indexToDelete = bookList.findIndex(item => item.id === bookId);
-    if (indexToDelete !== -1) {
-        bookList.splice(indexToDelete, 1);   
-    }
+//CLARIFICATION:
+//This populates the list of books with books data already created in the booksData.js file.
+initialBooks.forEach(book => {
+    addBookToList(book.title, book.author, book.pages, book.hasBeenRead);
+});
+
+function updateReadStatus(book, event) {
+    book.changeReadStatus();
+    event.target.textContent = book.hasBeenRead ? "Read ✓" : "Not Read ✗";
 }
 
-addBookToLibrary("1984", "George Orwell", 328, true);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
-addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
-addBookToLibrary("Moby Dick", "Herman Melville", 635, false);
-addBookToLibrary("Pride and Prejudice", "Jane Austen", 279, true);
-addBookToLibrary("The Catcher in the Rye", "J.D. Salinger", 214, false);
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addBookToLibrary("Fahrenheit 451", "Ray Bradbury", 194, true);
-addBookToLibrary("Brave New World", "Aldous Huxley", 268, false);
-addBookToLibrary("The Lord of the Rings", "J.R.R. Tolkien", 1178, true);
+function updateBookGrid() {
+    while (cardsContainer.firstChild) {
+        cardsContainer.removeChild(cardsContainer.firstChild);
+    }
+    bookList.forEach(book => {
+        const newCard = createCatalogCard(book);
+        cardsContainer.appendChild(newCard);
+    });
+}
 
-addNewLine("List of books on library:", "h2")
-bookList.forEach(book => {
-    addNewLine(`ID: ${book.id} / Info: ${book.info()}`);
-});
+function deleteBookFromLibrary(event) {
+    const indexToDelete = bookList.findIndex(item => item.id === event.target.parentNode.id);
+    if (indexToDelete !== -1) {
+        bookList.splice(indexToDelete, 1);
+        updateBookGrid();
+    }
+}
 
 function createCatalogCard(book) {
     const cardItem = document.createElement("div");
@@ -75,7 +67,7 @@ function createCatalogCard(book) {
     const readText = document.createElement("p");
     const readButton = document.createElement("button");
     const deleteButton = document.createElement("button");
-    
+
     cardItem.id = book.id;
     cardItem.classList.add("card-item");
     titleData.textContent = book.title;
@@ -89,6 +81,9 @@ function createCatalogCard(book) {
     deleteButton.dataset.choice = "delete";
     deleteButton.textContent = "Delete";
 
+    readButton.addEventListener("click", (event) => updateReadStatus(book, event));
+    deleteButton.addEventListener("click", deleteBookFromLibrary);
+
     cardItem.appendChild(titleData);
     cardItem.appendChild(authorData);
     cardItem.appendChild(pagesData);
@@ -100,8 +95,21 @@ function createCatalogCard(book) {
     return cardItem;
 }
 
-bookList.forEach(book => {
-    const newCard = createCatalogCard(book);
-    cardsContainer.appendChild(newCard);
-    console.log(newCard);
-});
+function addBookToLibrary(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    addBookToList(formData.get("title"), formData.get("author"), formData.get("pages"), formData.get("hasBeenRead"));
+    bookForm.reset();
+    updateBookGrid();
+    bookForm.style.display = "none";
+    booksGrid.style.display = "block";
+}
+
+function displayBookForm() {
+    bookForm.style.display = "block";
+    booksGrid.style.display = "none";
+}
+
+newBookButton.addEventListener("click", displayBookForm);
+bookForm.addEventListener("submit", addBookToLibrary);
+document.addEventListener("DOMContentLoaded", updateBookGrid);

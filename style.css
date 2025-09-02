@@ -15,23 +15,8 @@ body {
     flex-direction: column;
 }
 
-/* h1 {
-    width: fit-content;
-    padding: 1rem;
-    border: 3px solid darkgreen;
-    border-radius: 25px;
-    background-color: green;
-    box-shadow: 2px 2px 5px black;
-    text-shadow: 1px 1px 1px black;
-} */
-
 img {
     width: 50px;
-}
-
-.test-div,
-.create-book {
-    display: none;
 }
 
 header,
@@ -52,11 +37,15 @@ footer {
 
 .main-content-site {
     flex: 84%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .books-grid {
     border: 2px solid blue;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,17 +53,17 @@ footer {
 }
 
 .cards-container {
-    border: 1px solid black;
+    border: 2px solid red;
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1em;
     padding: 1em;
 }
 
 .card-item {
     border: 1px solid black;
-    max-height: fit-content;
+    /* max-height: fit-content; */
     display: flex;
     flex-direction: column;
     justify-content: center;
