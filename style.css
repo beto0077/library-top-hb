@@ -66,7 +66,7 @@ body {
     flex: 8%;
     display: flex;
     align-items: center;
-    padding: 1em;
+    padding: 1rem 2rem;
 
     box-shadow: 1px 3px 5px black;
 
@@ -141,7 +141,7 @@ body {
 }
 
 .card-item {
-    max-height: 300px;
+    max-height: 330px;
     max-width: 430px;
     justify-self: stretch;
     display: flex;
@@ -239,4 +239,85 @@ body {
 .note-this {
     font-size: 1.5rem;
     font-family: "Note This", Arial, Helvetica, sans-serif;
+}
+
+/* Form style */
+.book-form {
+    padding: 2rem 3rem;
+    background-image: url("./assets/images/education-148605_1280.png");
+    background-size: cover;
+    background-position: center center;
+
+    font-family: "Indie Flower", Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+
+    .form-title {
+        font-size: 2rem;
+    }
+
+    .main-form-fieldset {
+        margin: 3rem 2.5rem 1.5rem 2.5rem;
+        border: none;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        gap: 2.5rem;
+
+        div {
+            display: flex;
+            gap: 1rem;
+        }
+
+        input:not([type="radio"]) {
+            flex: 1;
+            background: none;
+            border: none;
+            font-family: "Indie Flower", Arial, Helvetica, sans-serif;
+            font-size: 1.5rem;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /*Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        fieldset {
+            padding-top: 0.5rem;
+            border: none;
+            display: flex;
+
+            div {
+                flex: 1;
+            }
+        }
+
+        .submit-button-container {
+            height: 5rem;
+            background-image: url("./assets/images/gold-153031_1280.png");
+            background-size: 75%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: flex;
+            justify-content: center;
+
+            .submit-button {
+                border: none;
+                width: 75%;
+                background: none;
+                cursor: pointer;
+
+                font-family: "Cinzel", Arial, Helvetica, sans-serif;
+                font-size: 1.5rem;
+                text-shadow: 1px 1px 3px black;
+            }
+        }
+    }
 }
