@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Alex Brush';
+    src: url('AlexBrush-Regular.woff2') format('woff2'),
+        url('AlexBrush-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    src: url('Cinzel-Regular.woff2') format('woff2'),
+        url('Cinzel-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Indie Flower';
+    src: url('IndieFlower.woff2') format('woff2'),
+        url('IndieFlower.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Journal';
+    src: url('Journal.woff2') format('woff2'),
+        url('Journal.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Note this';
+    src: url('Notethis.woff2') format('woff2'),
+        url('Notethis.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

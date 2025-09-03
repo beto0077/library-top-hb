@@ -1,9 +1,10 @@
 const cardsContainer = document.querySelector(".cards-container");
 const newBookButton = document.querySelector(".new-book-button");
 const bookForm = document.querySelector(".book-form");
-
 const booksGrid = document.querySelector(".books-grid");
+
 const bookList = [];
+const fontsToChoose = ["alex-brush", "indie-flower", "journal", "note-this"];
 
 function Book(title, author, pages, hasBeenRead) {
     if (!new.target) {
@@ -36,8 +37,10 @@ initialBooks.forEach(book => {
 });
 
 function updateReadStatus(book, event) {
+    event.target.parentNode.parentNode.classList.remove(book.hasBeenRead ? "read" : "unread");
     book.changeReadStatus();
     event.target.textContent = book.hasBeenRead ? "Read ✓" : "Not Read ✗";
+    event.target.parentNode.parentNode.classList.add(book.hasBeenRead ? "read" : "unread");
 }
 
 function updateBookGrid() {
@@ -70,6 +73,8 @@ function createCatalogCard(book) {
 
     cardItem.id = book.id;
     cardItem.classList.add("card-item");
+    cardItem.classList.add(book.hasBeenRead ? "read" : "unread");
+    cardItem.classList.add(fontsToChoose[Math.floor(Math.random() * fontsToChoose.length)]);
     titleData.textContent = book.title;
     authorData.textContent = `Author: ${book.author}`;
     pagesData.textContent = `Pages: ${book.pages}`;
@@ -79,7 +84,7 @@ function createCatalogCard(book) {
     readButton.textContent = book.hasBeenRead ? "Read ✓" : "Not Read ✗";
     deleteButton.classList.add("delete-button");
     deleteButton.dataset.choice = "delete";
-    deleteButton.textContent = "Delete";
+    deleteButton.textContent = "X";
 
     readButton.addEventListener("click", (event) => updateReadStatus(book, event));
     deleteButton.addEventListener("click", deleteBookFromLibrary);

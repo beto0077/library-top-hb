@@ -1,3 +1,48 @@
+@font-face {
+    font-family: 'Alex Brush';
+    src: url('./assets/fonts/AlexBrush-Regular.woff2') format('woff2'),
+        url('./assets/fonts/AlexBrush-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    src: url('./assets/fonts/Cinzel-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Cinzel-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Indie Flower';
+    src: url('./assets/fonts/IndieFlower.woff2') format('woff2'),
+        url('./assets/fonts/IndieFlower.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Journal';
+    src: url('./assets/fonts/Journal.woff2') format('woff2'),
+        url('./assets/fonts/Journal.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Note this';
+    src: url('./assets/fonts/Notethis.woff2') format('woff2'),
+        url('./assets/fonts/Notethis.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,25 +58,54 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
-}
 
-img {
-    width: 50px;
-}
-
-header,
-main,
-footer {
-    border: 1px solid black;
+    background-color: rgb(100, 100, 100);
 }
 
 .header-site {
     flex: 8%;
     display: flex;
     align-items: center;
-    
+    padding: 1em;
+
+    box-shadow: 1px 3px 5px black;
+
+    .logo {
+        padding: 0.1em;
+        border: 2px solid white;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 4em;
+    }
+
     h1 {
+        margin-left: 0.5em;
         margin-right: auto;
+        text-shadow: 1px 1px 2px white;
+        font-family: "Cinzel", Arial, Helvetica, sans-serif;
+    }
+
+    background-color: rgb(22, 22, 22);
+    color: white;
+
+    .new-book-button {
+        height: 3em;
+        width: 10em;
+        padding: 0.5em;
+        background-color: darkgreen;
+        color: white;
+        border: 2px solid greenyellow;
+        border-radius: 15px;
+        font-size: 1rem;
+        font-weight: 900;
+        text-shadow: 1px 1px 1px whitesmoke;
+        box-shadow: 2px 2px 4px green;
+        cursor: pointer;
     }
 }
 
@@ -43,17 +117,22 @@ footer {
 }
 
 .books-grid {
-    border: 2px solid blue;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
+
+    h2 {
+        padding: 1em;
+        color: white;
+        text-shadow: 1.5px 1.5px 1px black;
+        font-family: "Cinzel", Arial, Helvetica, sans-serif;
+    }
 }
 
 .cards-container {
-    border: 2px solid red;
     flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -62,17 +141,34 @@ footer {
 }
 
 .card-item {
-    border: 1px solid black;
-    /* max-height: fit-content; */
+    max-height: 300px;
+    max-width: 430px;
+    justify-self: stretch;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.3em;
     padding: 1em;
+
+    background-image: url("./assets/images/paper-2500942_1280.jpg");
+    background-size: cover;
+    background-position: center center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgb(22, 22, 22);
 }
 
 .delete-button {
     align-self: end;
+    margin-top: auto;
+    padding: 0.5em;
+
+    font-weight: 900;
+    background-color: gray;
+    border-color: black;
+    border-radius: 50px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    cursor: pointer;
 }
 
 .footer-site {
@@ -80,4 +176,67 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5em;
+
+    background-color: rgb(22, 22, 22);
+    color: white;
+    font-family: "Cinzel", Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    box-shadow: 1px -3px 5px black;
+}
+
+/* Styles for read and unread books */
+.read {
+    border: 2px solid green;
+
+    .read-button {
+        margin-top: 0.5em;
+        padding: 0.5em 1em;
+        font-weight: 900;
+        background-color: green;
+        /* border-color: lightgreen; */
+        border: 2px solid lightgreen;
+        border-radius: 15px;
+        color: white;
+        text-shadow: 1px 1px 1px black;
+        cursor: pointer;
+    }
+}
+
+.unread {
+    border: 2px dotted blue;
+
+    .read-button {
+        margin-top: 0.5em;
+        padding: 0.5em 1em;
+        font-weight: 900;
+        background-color: blue;
+        /* border-color: lightskyblue; */
+        border: 2px solid lightskyblue;
+        border-radius: 15px;
+        color: white;
+        text-shadow: 1px 1px 1px black;
+        cursor: pointer;
+    }
+}
+
+/* Styles for dynamic fonts */
+.alex-brush {
+    font-size: 1.5rem;
+    font-family: "Alex Brush", Arial, Helvetica, sans-serif;
+}
+
+.indie-flower {
+    font-size: 1.4rem;
+    font-family: "Indie Flower", Arial, Helvetica, sans-serif;
+}
+
+.journal {
+    font-size: 1.5rem;
+    font-family: "Journal", Arial, Helvetica, sans-serif;
+}
+
+.note-this {
+    font-size: 1.5rem;
+    font-family: "Note This", Arial, Helvetica, sans-serif;
 }
