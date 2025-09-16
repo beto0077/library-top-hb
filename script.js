@@ -6,29 +6,29 @@ const booksGrid = document.querySelector(".books-grid");
 const bookList = [];
 const fontsToChoose = ["alex-brush", "indie-flower", "journal", "note-this"];
 
-function Book(title, author, pages, hasBeenRead) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+    constructor(title, author, pages, hasBeenRead) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.hasBeenRead = hasBeenRead;
     }
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.hasBeenRead = hasBeenRead;
-}
 
-Book.prototype.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${hasBeenRead ? "has already been read" : "not read yet"}`;
-}
+    info() {
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.hasBeenRead ? "has already been read" : "not read yet"}`;
+    }
 
-Book.prototype.changeReadStatus = function () {
-    this.hasBeenRead = this.hasBeenRead ? false : true;
+    changeReadStatus() {
+        this.hasBeenRead = !this.hasBeenRead;
+    }
 }
 
 function addBookToList(title, author, pages, hasBeenRead) {
     const newBook = new Book(title, author, Number(pages), hasBeenRead === "true" ? true : false);
     bookList.push(newBook);
 }
+
 
 //CLARIFICATION:
 //This populates the list of books with books data already created in the booksData.js file.
