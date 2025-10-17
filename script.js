@@ -101,7 +101,7 @@ function createCatalogCard(book) {
 }
 
 function addBookToLibrary(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const formData = new FormData(event.target);
     addBookToList(formData.get("title"), formData.get("author"), formData.get("pages"), formData.get("hasBeenRead"));
     bookForm.reset();
@@ -110,11 +110,61 @@ function addBookToLibrary(event) {
     booksGrid.style.display = "block";
 }
 
+function verifyFormValidity(event) {
+    event.preventDefault();
+
+    const title = document.querySelector("#title");
+    const author = document.querySelector("#author");
+    const pages = document.querySelector("#pages");
+
+    let isValid = true;
+    let firstInvalidElement = null;
+
+    if (title.value.trim() === "") {
+        title.setCustomValidity("You must enter the title of the book");
+        isValid = false;
+        if (!firstInvalidElement) firstInvalidElement = title;
+    } else {
+        title.setCustomValidity("");
+    }
+
+    if (author.value.trim() === "") {
+        author.setCustomValidity("You must enter the author of the book");
+        isValid = false;
+        if (!firstInvalidElement) firstInvalidElement = author;
+    } else {
+        author.setCustomValidity("");
+    }
+
+    if (pages.value.trim() === "") {
+        pages.setCustomValidity("You must enter the number of pages in the book");
+        isValid = false;
+        if (!firstInvalidElement) firstInvalidElement = pages;
+    } else if (pages.validity.rangeUnderflow) {
+        isValid = false;
+        if (!firstInvalidElement) firstInvalidElement = pages;
+    } else {
+        pages.setCustomValidity("");
+    }
+
+    if (isValid) {
+        addBookToLibrary(event);
+    } else {
+        if (firstInvalidElement) {
+            firstInvalidElement.reportValidity();
+
+            firstInvalidElement.addEventListener("input", () => {
+                firstInvalidElement.setCustomValidity("");
+            }, { once: true });
+        }
+    }
+}
+
 function displayBookForm() {
     bookForm.style.display = "block";
     booksGrid.style.display = "none";
 }
 
 newBookButton.addEventListener("click", displayBookForm);
-bookForm.addEventListener("submit", addBookToLibrary);
+bookForm.addEventListener("submit", verifyFormValidity);
 document.addEventListener("DOMContentLoaded", updateBookGrid);
